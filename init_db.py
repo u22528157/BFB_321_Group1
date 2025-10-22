@@ -1,4 +1,4 @@
-!/usr/bin/env python3
+#!/usr/bin/env python3
 """
 Database initialization script for Flask app
 Converts MySQL schema to SQLite and creates the database
