@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up - COMPONENT COMPASS</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: white;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            display: flex;
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            gap: 40px;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .main-content {
+            flex: 2;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px;
+            color: white;
+        }
+
+        .signup-section {
+            flex: 1;
+            display: flex;
+            align-items: flex-start;
+            padding-top: 20px;
+        }
+
+        .signup-tile {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 40px;
+            width: 100%;
+            min-width: 400px;
+            max-width: 500px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            color: #333;
+        }
+
+        .signup-header {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            gap: 35px;
+        }
+
+        .signup-heading {
+            font-size: 28px;
+            font-weight: 600;
+            color: #2c3e50;
+            margin: 0;
+            white-space: nowrap;
+        }
+
+        .department-badge {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            white-space: nowrap;
+        }
+
+        .green-circle {
+            width: 10px;
+            height: 10px;
+            background-color: #10B981;
+            border-radius: 50%;
+        }
+
+        .department-text {
+            font-size: 12px;
+            color: #6B7280;
+            font-weight: 500;
+        }
+
+        .demo-text {
+            font-size: 14px;
+            color: #8B4513;
+            margin-bottom: 25px;
+            line-height: 1.5;
+            text-align: center;
+            background-color: #FEF3C7;
+            padding: 15px;
+            border-radius: 12px;
+            border: 1px solid #FBBF24;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: #555;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e1e8ed;
+            border-radius: 10px;
+            font-size: 16px;
+            transition: border-color 0.3s ease;
+            background-color: #f8f9fa;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: #667eea;
+            background-color: white;
+        }
+
+        .complete-btn {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            margin-bottom: 20px;
+        }
+
+        .complete-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+        }
+
+        .login-link {
+            font-size: 14px;
+            color: #6b7280;
+            text-align: center;
+            line-height: 1.4;
+            margin-bottom: 20px;
+        }
+
+        .login-btn {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 600;
+            cursor: pointer;
+            transition: color 0.2s ease;
+        }
+
+        .login-btn:hover {
+            color: #5a67d8;
+            text-decoration: underline;
+        }
+
+        .disclaimer {
+            font-size: 12px;
+            color: #888;
+            text-align: center;
+            line-height: 1.4;
+        }
+
+        .brand-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .logo-square {
+            width: 50px;
+            height: 50px;
+            background-color: #8B5CF6;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 20px;
+            color: white;
+            margin-right: 15px;
+        }
+
+        .brand-text h1 {
+            font-size: 28px;
+            font-weight: 600;
+            color: black;
+            margin: 0;
+        }
+
+        .tagline {
+            font-size: 14px;
+            color: #9CA3AF;
+            margin: 2px 0 0 0;
+        }
+
+        .main-heading {
+            font-size: 42px;
+            font-weight: 800;
+            margin-bottom: 20px;
+            color: black;
+        }
+
+        .sub-heading {
+            font-size: 18px;
+            color: #9CA3AF;
+            line-height: 1.6;
+            margin-bottom: 30px;
+        }
+
+        .feature-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .feature-list li {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 15px;
+            font-size: 16px;
+            font-weight: 600;
+            color: black;
+        }
+
+        .checkmark {
+            color: #10B981;
+            font-weight: bold;
+            margin-right: 12px;
+            font-size: 18px;
+            line-height: 1.2;
+        }
+
+        /* Flash Messages */
+        .flash-message {
+            padding: 12px 15px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .flash-success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .flash-error {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+
+        .flash-info {
+            background-color: #cce7ff;
+            color: #004085;
+            border: 1px solid #b3d7ff;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+            }
+            
+            .main-content {
+                order: 2;
+            }
+            
+            .signup-section {
+                order: 1;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="main-content">
+            <div class="brand-header">
+                <div class="logo-square">CC</div>
+                <div class="brand-text">
+                    <h1>COMPONENT COMPASS</h1>
+                    <p class="tagline">Find, compare, reserve</p>
+                </div>
+            </div>
+            
+            <h2 class="main-heading">Join COMPONENT COMPASS</h2>
+            <p class="sub-heading">Create your account to start managing your electronic components efficiently and access our comprehensive inventory system.</p>
+            
+            <div class="features">
+                <ul class="feature-list">
+                    <li><span class="checkmark">âœ“</span>Access to comprehensive component database</li>
+                    <li><span class="checkmark">âœ“</span>Personalized component reservations</li>
+                    <li><span class="checkmark">âœ“</span>Track your practical requirements</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="signup-section">
+            <div class="signup-tile">
+                <div class="signup-header">
+                    <h2 class="signup-heading">Create Account</h2>
+                    <div class="department-badge">
+                        <div class="green-circle"></div>
+                        <span class="department-text">COMPONENT COMPASS</span>
+                    </div>
+                </div>
+                
+                <!-- Flash Messages -->
+                {% with messages = get_flashed_messages(with_categories=true) %}
+                    {% if messages %}
+                        {% for category, message in messages %}
+                            <div class="flash-message flash-{{ category }}">
+                                {{ message }}
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                {% endwith %}
+                
+                <p class="demo-text">
+                    Create your account to access the component management system.
+                </p>
+                
+                <form action="/signup" method="POST">
+                    <div class="form-group">
+                        <label for="fullname">Full Name</label>
+                        <input type="text" id="fullname" name="fullname" placeholder="Enter your full name" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <input type="email" id="email" name="email" placeholder="Enter your email address" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input type="password" id="password" name="password" placeholder="Create a password" required>
+                    </div>
+                    
+                    <button type="submit" class="complete-btn">Complete</button>
+                </form>
+                
+                <p class="login-link">
+                    Already have an account? <a href="/" class="login-btn">Login</a>
+                </p>
+                
+                <p class="disclaimer">
+                    By creating an account, you agree this prototype does not process real registrations or store personal data.
+                </p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
