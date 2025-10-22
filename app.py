@@ -544,4 +544,480 @@ if __name__ == '__main__':
             print(f"Error initializing database: {e}")
     
     app.run(debug=True)
+
+
+    @app.route('/exit')
+def exit_page():
+    user_email = session.get('user_email', 'student@example.com')
+    cart_items = session.get('cart_items', [])
+    return render_template('exit.html', user_email=user_email, cart_items=cart_items)
+
+@app.route('/complete_practical', methods=['POST'])
+def complete_practical():
+    # Get cart data from request
+    data = request.get_json()
+    if data and 'cart' in data:
+        session['cart_items'] = data['cart']
+    
+    return jsonify({'success': True, 'redirect': '/exit'})
+
+@app.route('/complete_redirect')
+def complete_redirect():
+    return redirect(url_for('exit_page'))
+
+@app.route('/submit_feedback', methods=['POST'])
+def submit_feedback():
+    try:
+        # Get data from request
+        data = request.get_json()
+        rating = data.get('rating', 0)
+        feedback = data.get('feedback', '')
+        
+        # Create customer_feedback directory if it doesn't exist
+        feedback_dir = os.path.join(os.path.dirname(__file__), 'customer_feedback')
+        os.makedirs(feedback_dir, exist_ok=True)
+        
+        # Generate filename with timestamp
+        timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
+        filename = f'feedback_{timestamp}.txt'
+        filepath = os.path.join(feedback_dir, filename)
+        
+        # Write feedback to file
+        with open(filepath, 'w', encoding='utf-8') as f:
+            f.write(f"COMPONENT COMPASS - Customer Feedback\n")
+            f.write(f"================================\n\n")
+            f.write(f"Date: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\n")
+            f.write(f"Rating: {rating}/5 stars\n")
+            f.write(f"Feedback:\n{feedback}\n\n")
+            f.write(f"---End of Feedback---\n")
+        
+        return jsonify({'success': True, 'message': 'Feedback saved successfully'})
+    
+    except Exception as e:
+        return jsonify({'success': False, 'message': f'Error saving feedback: {str(e)}'}), 500
+
+@app.route('/export_pdf', methods=['POST'])
+def export_pdf():
+    try:
+        # Get data from request
+        data = request.get_json()
+        components = data.get('components', [])
+        student_email = data.get('student_email', 'student@example.com')
+        
+        # Create Reserved_components directory if it doesn't exist
+        pdf_dir = os.path.join(os.path.dirname(__file__), 'Reserved_components')
+        os.makedirs(pdf_dir, exist_ok=True)
+        
+        # Generate filename with timestamp
+        timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
+        filename = f'reservation_{timestamp}.pdf'
+        filepath = os.path.join(pdf_dir, filename)
+        
+        # Generate dates
+        current_date = datetime.now().strftime('%B %d, %Y')
+        collection_date = (datetime.now() + timedelta(days=3)).strftime('%B %d, %Y')
+        
+        # Calculate total cost
+        total_cost = sum(component.get('price', 0) for component in components)
+        
+        if REPORTLAB_AVAILABLE:
+            # Create PDF using ReportLab
+            doc = SimpleDocTemplate(filepath, pagesize=letter, 
+                                  rightMargin=72, leftMargin=72, 
+                                  topMargin=72, bottomMargin=18)
+            
+            story = []
+            styles = getSampleStyleSheet()
+            
+            # Custom styles
+            title_style = ParagraphStyle(
+                'CustomTitle',
+                parent=styles['Heading1'],
+                fontSize=16,
+                spaceAfter=10,
+                alignment=0,  # Left alignment
+                textColor=colors.black
+            )
+            
+            header_style = ParagraphStyle(
+                'CustomHeader',
+                parent=styles['Heading2'],
+                fontSize=14,
+                spaceAfter=12,
+                textColor=colors.black
+            )
+
+            # Enhanced Header with EE Logo styling
+            from reportlab.platypus import KeepTogether
+            from reportlab.lib.colors import HexColor
+            
+            # Create a table for the header with logo and title
+            header_data = [
+                [Paragraph('<para align="center" backColor="#8B5CF6" textColor="white" fontSize="18" fontName="Helvetica-Bold">EE</para>', styles['Normal']), 
+                 Paragraph('ERS 220<br/>Component Reservation', title_style)]
+            ]
+            
+            header_table = Table(header_data, colWidths=[0.8*inch, 4*inch])
+            header_table.setStyle(TableStyle([
+                # Logo cell styling (purple background, white text)
+                ('BACKGROUND', (0, 0), (0, 0), HexColor('#8B5CF6')),
+                ('TEXTCOLOR', (0, 0), (0, 0), colors.white),
+                ('FONTNAME', (0, 0), (0, 0), 'Helvetica-Bold'),
+                ('FONTSIZE', (0, 0), (0, 0), 18),
+                ('ALIGN', (0, 0), (0, 0), 'CENTER'),
+                ('VALIGN', (0, 0), (0, 0), 'MIDDLE'),
+                
+                # Title cell styling
+                ('ALIGN', (1, 0), (1, 0), 'LEFT'),
+                ('VALIGN', (1, 0), (1, 0), 'MIDDLE'),
+                ('LEFTPADDING', (1, 0), (1, 0), 15),
+                
+                # Remove borders and add some styling
+                ('BOX', (0, 0), (0, 0), 2, HexColor('#8B5CF6')),
+                ('ROUNDEDCORNERS', (0, 0), (0, 0), [8, 8, 8, 8]),
+            ]))
+            
+            story.append(header_table)
+            story.append(Spacer(1, 30))
+            
+            # Header
+            story.append(Paragraph('COMPONENT COMPASS', title_style))
+            story.append(Paragraph('Reservations', title_style))
+            story.append(Spacer(1, 20))
+            
+            # Student details table
+            details_data = [
+                ['Student Email:', student_email],
+                ['Reservation Date:', current_date],
+                ['Collection Deadline:', collection_date]
+            ]
+            
+            details_table = Table(details_data, colWidths=[2*inch, 3*inch])
+            details_table.setStyle(TableStyle([
+                ('ALIGN', (0, 0), (-1, -1), 'LEFT'),
+                ('FONTNAME', (0, 0), (0, -1), 'Helvetica-Bold'),
+                ('FONTSIZE', (0, 0), (-1, -1), 10),
+                ('BOTTOMPADDING', (0, 0), (-1, -1), 6),
+            ]))
+            
+            story.append(details_table)
+            story.append(Spacer(1, 20))
+            
+            # Collection instructions
+            story.append(Paragraph('Collection Instructions', header_style))
+            story.append(Paragraph(
+                'Please collect your reserved components within 3 days from the respective stores. '
+                'Bring this reservation confirmation and your student ID.',
+                styles['Normal']
+            ))
+            story.append(Spacer(1, 20))
+            
+            # Components table
+            story.append(Paragraph('Reserved Components', header_style))
+            
+            # Table data
+            table_data = [['Component Name', 'Store', 'Price']]
+            
+            for component in components:
+                table_data.append([
+                    component.get('name', ''),
+                    component.get('store', ''),
+                    f"${component.get('price', 0):.2f}"
+                ])
+            
+            # Add total row
+            table_data.append(['', 'Total Cost:', f'${total_cost:.2f}'])
+            
+            # Create table
+            components_table = Table(table_data, colWidths=[3*inch, 2*inch, 1*inch])
+            components_table.setStyle(TableStyle([
+                # Header row
+                ('BACKGROUND', (0, 0), (-1, 0), colors.grey),
+                ('TEXTCOLOR', (0, 0), (-1, 0), colors.whitesmoke),
+                ('ALIGN', (0, 0), (-1, -1), 'LEFT'),
+                ('FONTNAME', (0, 0), (-1, 0), 'Helvetica-Bold'),
+                ('FONTSIZE', (0, 0), (-1, 0), 12),
+                ('BOTTOMPADDING', (0, 0), (-1, 0), 12),
+                
+                # Data rows
+                ('FONTNAME', (0, 1), (-1, -2), 'Helvetica'),
+                ('FONTSIZE', (0, 1), (-1, -2), 10),
+                ('ROWBACKGROUNDS', (0, 1), (-1, -2), [colors.white, colors.white]),
+                
+                # Total row
+                ('FONTNAME', (0, -1), (-1, -1), 'Helvetica-Bold'),
+                ('FONTSIZE', (0, -1), (-1, -1), 12),
+                ('BACKGROUND', (0, -1), (-1, -1), colors.lightgrey),
+                
+                # All borders
+                ('GRID', (0, 0), (-1, -1), 1, colors.black)
+            ]))
+            
+            story.append(components_table)
+            story.append(Spacer(1, 30))
+            
+            # Good luck message
+            story.append(Paragraph(
+                'Good luck with your practical! We\'re excited to see what you\'ll build with these components.',
+                ParagraphStyle('GoodLuck', parent=styles['Normal'], 
+                             alignment=1, fontSize=12, textColor=colors.purple)
+            ))
+            story.append(Spacer(1, 20))
+            
+            # Disclaimer
+            story.append(Paragraph(
+                'Note: Components are reserved for 3 days only. Uncollected items will be released back to general stock.',
+                ParagraphStyle('Disclaimer', parent=styles['Normal'], 
+                             alignment=1, fontSize=10, textColor=colors.red, fontName='Helvetica-Oblique')
+            ))
+            
+            # Build PDF
+            doc.build(story)
+            
+        else:
+            
+            html_content = f"""
+            <!DOCTYPE html>
+            <html>
+            <head>
+                <style>
+                    * {{
+                        margin: 0;
+                        padding: 0;
+                        box-sizing: border-box;
+                    }}
+                    
+                    body {{
+                        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+                        background: #fafafa;
+                        padding: 30px;
+                    }}
+                    
+                    .pdf-preview {{
+                        border: 2px solid #e1e8ed;
+                        border-radius: 15px;
+                        padding: 30px;
+                        background: #fafafa;
+                        margin-bottom: 30px;
+                        position: relative;
+                    }}
+                    
+                    .pdf-header {{
+                        display: flex;
+                        justify-content: space-between;
+                        align-items: flex-start;
+                        margin-bottom: 30px;
+                        padding-bottom: 20px;
+                        border-bottom: 2px solid #e1e8ed;
+                    }}
+                    
+                    .pdf-logo-section {{
+                        display: flex;
+                        align-items: center;
+                    }}
+                    
+                    .pdf-logo {{
+                        width: 50px;
+                        height: 50px;
+                        background-color: #8B5CF6;
+                        border-radius: 8px;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        font-weight: bold;
+                        font-size: 20px;
+                        color: white;
+                        margin-right: 15px;
+                        border: 2px solid #8B5CF6;
+                    }}
+                    
+                    .pdf-title {{
+                        font-size: 22px;
+                        font-weight: 700;
+                        color: #2c3e50;
+                        line-height: 1.2;
+                    }}
+                    
+                    .student-details {{
+                        text-align: right;
+                        font-size: 14px;
+                        color: #6b7280;
+                    }}
+                    
+                    .collection-info {{
+                        background: #f0f9ff;
+                        border: 1px solid #0ea5e9;
+                        border-radius: 10px;
+                        padding: 15px;
+                        margin-bottom: 20px;
+                        font-size: 14px;
+                        color: #0369a1;
+                    }}
+                    
+                    .component-list {{
+                        margin-bottom: 30px;
+                    }}
+                    
+                    .component-item {{
+                        display: flex;
+                        justify-content: space-between;
+                        align-items: center;
+                        padding: 15px;
+                        border-bottom: 1px solid #e5e7eb;
+                        font-size: 14px;
+                    }}
+                    
+                    .component-name-store {{
+                        flex: 1;
+                    }}
+                    
+                    .component-name {{
+                        font-weight: 600;
+                        color: #2c3e50;
+                    }}
+                    
+                    .component-store {{
+                        color: #6b7280;
+                        font-size: 12px;
+                    }}
+                    
+                    .component-price {{
+                        font-weight: 600;
+                        color: #667eea;
+                        min-width: 80px;
+                        text-align: right;
+                    }}
+                    
+                    .pdf-total {{
+                        border-top: 2px solid #2c3e50;
+                        padding-top: 15px;
+                        margin-top: 20px;
+                        display: flex;
+                        justify-content: space-between;
+                        align-items: center;
+                        font-size: 18px;
+                        font-weight: 700;
+                        color: #2c3e50;
+                    }}
+                    
+                    .good-luck-message {{
+                        background: #f0fdf4;
+                        border: 1px solid #22c55e;
+                        border-radius: 10px;
+                        padding: 15px;
+                        margin-bottom: 15px;
+                        font-size: 14px;
+                        color: #15803d;
+                        text-align: center;
+                    }}
+                    
+                    .disclaimer {{
+                        font-size: 12px;
+                        color: #6b7280;
+                        text-align: center;
+                        font-style: italic;
+                    }}
+                </style>
+            </head>
+            <body>
+                <div class="pdf-preview">
+                    <div class="pdf-header">
+                        <div class="pdf-logo-section">
+                            <div class="pdf-logo">EE</div>
+                            <div class="pdf-title">ERS 220<br>Component Reservation</div>
+                        </div>
+                        <div class="student-details">
+                            <strong>Student Email:</strong> {student_email}<br>
+                            <strong>Reservation Date:</strong> {current_date}<br>
+                            <strong>Collection Deadline:</strong> {collection_date}
+                        </div>
+                    </div>
+
+                    <div class="collection-info">
+                        <strong>Collection Instructions:</strong> Please collect your reserved components within 3 days from the Electronics Lab (Room 201). Bring this reservation confirmation and your student ID.
+                    </div>
+
+                    <div class="component-list">
+            """
+            
+            for component in components:
+                html_content += f"""
+                        <div class="component-item">
+                            <div class="component-name-store">
+                                <div class="component-name">{component.get('name', '')}</div>
+                                <div class="component-store">{component.get('store', '')}</div>
+                            </div>
+                            <div class="component-price">${component.get('price', 0):.2f}</div>
+                        </div>
+                """
+            
+            html_content += f"""
+                    </div>
+
+                    <div class="pdf-total">
+                        <span>Total Cost:</span>
+                        <span>${total_cost:.2f}</span>
+                    </div>
+
+                    <div class="good-luck-message">
+                        Good luck with your practical! We're excited to see what you'll build with these components.
+                    </div>
+
+                    <div class="disclaimer">
+                        Note: Components are reserved for 3 days only. Uncollected items will be released back to general stock.
+                    </div>
+                </div>
+            </body>
+            </html>
+            """
+            
+            # For now, save as HTML (can be printed to PDF by user)
+            filepath = filepath.replace('.pdf', '.html')
+            filename = filename.replace('.pdf', '.html')
+            
+            with open(filepath, 'w', encoding='utf-8') as f:
+                f.write(html_content)
+        
+        return jsonify({
+            'success': True, 
+            'message': f'PDF exported successfully! {"PDF" if REPORTLAB_AVAILABLE else "HTML"} file created.',
+            'filename': filename
+        })
+        
+    except Exception as e:
+        return jsonify({'success': False, 'message': f'Error creating PDF: {str(e)}'}), 500
+
+@app.route('/test_db')
+def test_db():
+    """Test database connection and data"""
+    try:
+        conn = get_db_connection()
+        
+        # Test tables exist
+        tables = conn.execute("SELECT name FROM sqlite_master WHERE type='table'").fetchall()
+        table_names = [table['name'] for table in tables]
+        
+        # Test some data
+        practicals = conn.execute('SELECT * FROM Practical').fetchall()
+        components = conn.execute('SELECT * FROM Components').fetchall()
+        suppliers = conn.execute('SELECT * FROM Supplier').fetchall()
+        
+        conn.close()
+        
+        return jsonify({
+            'status': 'success',
+            'tables': table_names,
+            'practicals_count': len(practicals),
+            'components_count': len(components),
+            'suppliers_count': len(suppliers),
+            'practicals': [dict(p) for p in practicals],
+            'components': [dict(c) for c in components],
+            'suppliers': [dict(s) for s in suppliers]
+        })
+        
+    except Exception as e:
+        return jsonify({'status': 'error', 'message': str(e)})
+
+if __name__ == '__main__':
+    app.run(debug=True)
     
