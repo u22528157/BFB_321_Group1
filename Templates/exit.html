@@ -575,7 +575,7 @@
             .then(response => response.json())
             .then(data => {
                 if (data.success) {
-                    alert(PDF exported successfully! File saved as: ${data.filename});
+                    alert(`PDF exported successfully! File saved as: ${data.filename}`);
                 } else {
                     alert('Error exporting PDF: ' + data.message);
                 }
