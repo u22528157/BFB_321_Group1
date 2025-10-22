@@ -545,8 +545,7 @@ if __name__ == '__main__':
     
     app.run(debug=True)
 
-
-    @app.route('/exit')
+@app.route('/exit')
 def exit_page():
     user_email = session.get('user_email', 'student@example.com')
     cart_items = session.get('cart_items', [])
@@ -1020,4 +1019,3 @@ def test_db():
 
 if __name__ == '__main__':
     app.run(debug=True)
-    
