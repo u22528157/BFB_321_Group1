@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>COMPONENT COMPASS - Thank You</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f8f9fa;
+            min-height: 100vh;
+        }
+
+        .header {
+            background: white;
+            padding: 20px 40px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .brand-header {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo-square {
+            width: 50px;
+            height: 50px;
+            background-color: #8B5CF6;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 20px;
+            color: white;
+            margin-right: 15px;
+        }
+
+        .brand-text h1 {
+            font-size: 28px;
+            font-weight: 600;
+            color: black;
+            margin: 0;
+        }
+
+        .tagline {
+            font-size: 14px;
+            color: #9CA3AF;
+            margin: 2px 0 0 0;
+        }
+
+        .main-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .thank-you-section {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 40px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .thank-you-title {
+            font-size: 32px;
+            font-weight: 700;
+            color: #2c3e50;
+            margin-bottom: 20px;
+        }
+
+        .thank-you-message {
+            font-size: 18px;
+            color: #6b7280;
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+
+        .rating-container {
+            margin-bottom: 30px;
+        }
+
+        .rating-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 15px;
+        }
+
+        .star-rating {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 30px;
+        }
+
+        .star {
+            font-size: 32px;
+            color: #e5e7eb;
+            cursor: pointer;
+            transition: color 0.2s ease;
+        }
+
+        .star:hover,
+        .star.active {
+            color: #fbbf24;
+        }
+
+        .feedback-section {
+            text-align: left;
+            margin-bottom: 30px;
+        }
+
+        .feedback-label {
+            font-size: 16px;
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .feedback-textarea {
+            width: 100%;
+            min-height: 120px;
+            padding: 15px;
+            border: 2px solid #e1e8ed;
+            border-radius: 12px;
+            font-size: 14px;
+            font-family: inherit;
+            resize: vertical;
+            transition: border-color 0.3s ease;
+        }
+
+        .feedback-textarea:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .submit-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            padding: 15px 30px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+            margin-right: 15px;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .confirmation-message {
+            color: #10B981;
+            font-weight: 600;
+            margin-top: 15px;
+            display: none;
+        }
+
+        .reserved-components-section {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 40px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .section-title {
+            font-size: 32px;
+            font-weight: 700;
+            color: #2c3e50;
+            margin-bottom: 30px;
+        }
+
+        .export-section {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .export-btn {
+            background: linear-gradient(135deg, #10B981 0%, #059669 100%);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            padding: 15px 25px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .export-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .pdf-preview {
+            border: 2px solid #e1e8ed;
+            border-radius: 15px;
+            padding: 30px;
+            background: #fafafa;
+            margin-bottom: 30px;
+            position: relative;
+        }
+
+        .pdf-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #e1e8ed;
+        }
+
+        .pdf-logo-section {
+            display: flex;
+            align-items: center;
+        }
+
+        .pdf-logo {
+            width: 40px;
+            height: 40px;
+            background-color: #8B5CF6;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 16px;
+            color: white;
+            margin-right: 12px;
+        }
+
+        .pdf-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: #2c3e50;
+        }
+
+        .student-details {
+            text-align: right;
+            font-size: 14px;
+            color: #6b7280;
+        }
+
+        .component-list {
+            margin-bottom: 30px;
+        }
+
+        .component-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px;
+            border-bottom: 1px solid #e5e7eb;
+            font-size: 14px;
+        }
+
+        .component-name-store {
+            flex: 1;
+        }
+
+        .component-name {
+            font-weight: 600;
+            color: #2c3e50;
+        }
+
+        .component-store {
+            color: #6b7280;
+            font-size: 12px;
+        }
+
+        .component-price {
+            font-weight: 600;
+            color: #667eea;
+            min-width: 80px;
+            text-align: right;
+        }
+
+        .pdf-total {
+            border-top: 2px solid #2c3e50;
+            padding-top: 15px;
+            margin-top: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 18px;
+            font-weight: 700;
+            color: #2c3e50;
+        }
+
+        .collection-info {
+            background: #f0f9ff;
+            border: 1px solid #0ea5e9;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 20px;
+            font-size: 14px;
+            color: #0369a1;
+        }
+
+        .good-luck-message {
+            background: #f0fdf4;
+            border: 1px solid #22c55e;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 15px;
+            font-size: 14px;
+            color: #15803d;
+            text-align: center;
+        }
+
+        .disclaimer {
+            font-size: 12px;
+            color: #6b7280;
+            text-align: center;
+            font-style: italic;
+        }
+
+        .back-btn {
+            background: linear-gradient(135deg, #6b7280 0%, #4b5563 100%);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            padding: 15px 30px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+            display: block;
+            margin: 0 auto;
+        }
+
+        .back-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        @media (max-width: 768px) {
+            .header {
+                padding: 15px 20px;
+            }
+            
+            .main-container {
+                padding: 20px 15px;
+            }
+            
+            .pdf-header {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .student-details {
+                text-align: left;
+            }
+            
+            .component-item {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 5px;
+            }
+            
+            .component-price {
+                text-align: left;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="brand-header">
+            <div class="logo-square">CC</div>
+            <div class="brand-text">
+                <h1>COMPONENT COMPASS</h1>
+                <p class="tagline">Find, compare, reserve</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="main-container">
+        <!-- Thank You Section -->
+        <div class="thank-you-section">
+            <h1 class="thank-you-title">Thanks for using Component Compass!</h1>
+            <p class="thank-you-message">We hope this saved you time. Mind sharing a quick rating?</p>
+            
+            <div class="rating-container">
+                <div class="rating-title">How was your experience?</div>
+                <div class="star-rating">
+                    <span class="star" onclick="setRating(1)">â˜…</span>
+                    <span class="star" onclick="setRating(2)">â˜…</span>
+                    <span class="star" onclick="setRating(3)">â˜…</span>
+                    <span class="star" onclick="setRating(4)">â˜…</span>
+                    <span class="star" onclick="setRating(5)">â˜…</span>
+                </div>
+            </div>
+
+            <div class="feedback-section">
+                <label class="feedback-label">Any feedback to help us improve?</label>
+                <textarea class="feedback-textarea" id="feedbackText" placeholder="Share your thoughts about the platform, features, or suggestions for improvement..."></textarea>
+            </div>
+
+            <button class="submit-btn" onclick="submitReview()">Submit Review</button>
+            <div class="confirmation-message" id="confirmationMessage">Thanks for your feedback!</div>
+        </div>
+
+        <!-- Reserved Components Section -->
+        <div class="reserved-components-section">
+            <div class="export-section">
+                <h2 class="section-title">Your Reserved Components</h2>
+                <button class="export-btn" onclick="exportPDF()">
+                    ðŸ“„ Export PDF
+                </button>
+            </div>
+
+            <div class="pdf-preview">
+                <div class="pdf-header">
+                    <div class="pdf-logo-section">
+                        <div class="pdf-logo">EE</div>
+                        <div class="pdf-title">ERS 220<br>Component Reservation</div>
+                    </div>
+                    <div class="student-details">
+                        <strong>Student Email:</strong> {{ user_email }}<br>
+                        <strong>Reservation Date:</strong> <span id="currentDate"></span><br>
+                        <strong>Collection Deadline:</strong> <span id="collectionDate"></span>
+                    </div>
+                </div>
+
+                <div class="collection-info">
+                    <strong>Collection Instructions:</strong> Please collect your reserved components within 3 days from the respective stores. Bring this reservation confirmation and your student ID.
+                </div>
+
+                <div class="component-list" id="componentList">
+                    {% if cart_items %}
+                        {% for item in cart_items %}
+                        <div class="component-item">
+                            <div class="component-name-store">
+                                <div class="component-name">{{ item.name }}</div>
+                                <div class="component-store">{{ item.store if item.store else 'Various Stores' }}</div>
+                            </div>
+                            <div class="component-price">${{ "%.2f"|format(item.price) }}</div>
+                        </div>
+                        {% endfor %}
+                    {% else %}
+                        <div class="component-item">
+                            <div class="component-name-store">
+                                <div class="component-name">No items in cart</div>
+                                <div class="component-store">Please add items from the main page</div>
+                            </div>
+                            <div class="component-price">$0.00</div>
+                        </div>
+                    {% endif %}
+                </div>
+
+                <div class="pdf-total">
+                    <span>Total Cost:</span>
+                    <span id="totalCost">${{ "%.2f"|format(cart_items|sum(attribute='price') if cart_items else 0) }}</span>
+                </div>
+
+                <div class="good-luck-message">
+                    Good luck with your practical! We're excited to see what you'll build with these components.
+                </div>
+
+                <div class="disclaimer">
+                    Note: Components are reserved for 3 days only. Uncollected items will be released back to general stock.
+                </div>
+            </div>
+
+            <button class="back-btn" onclick="goBackToMain()">Back to Main</button>
+        </div>
+    </div>
+
+    <!-- Template data from Flask -->
+    <script type="application/json" id="cart-data">{{ cart_items|tojson if cart_items else "[]" }}</script>
+    <script type="application/json" id="user-data">{{ user_email|tojson }}</script>
+    
+    <script>
+        // Initialize template data from Flask
+        const CART_ITEMS = JSON.parse(document.getElementById('cart-data').textContent);
+        const USER_EMAIL = JSON.parse(document.getElementById('user-data').textContent);
+        
+        let currentRating = 0;
+
+        function setRating(rating) {
+            currentRating = rating;
+            const stars = document.querySelectorAll('.star');
+            stars.forEach((star, index) => {
+                if (index < rating) {
+                    star.classList.add('active');
+                } else {
+                    star.classList.remove('active');
+                }
+            });
+        }
+
+        function submitReview() {
+            const feedback = document.getElementById('feedbackText').value;
+            const confirmationMessage = document.getElementById('confirmationMessage');
+            
+            // Validate that user provided at least a rating
+            if (currentRating === 0) {
+                alert('Please provide a rating before submitting your review.');
+                return;
+            }
+            
+            // Send feedback to backend
+            fetch('/submit_feedback', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    rating: currentRating,
+                    feedback: feedback
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    // Show confirmation message
+                    confirmationMessage.style.display = 'block';
+                    
+                    // Clear the form
+                    document.getElementById('feedbackText').value = '';
+                    setRating(0);
+                    
+                    // Hide the confirmation message after 3 seconds
+                    setTimeout(() => {
+                        confirmationMessage.style.display = 'none';
+                    }, 3000);
+                } else {
+                    alert('Error saving feedback: ' + data.message);
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Error submitting feedback. Please try again.');
+            });
+        }
+
+        function exportPDF() {
+            // Use global variables set from Flask template
+            const components = CART_ITEMS;
+            const studentEmail = USER_EMAIL;
+            
+            // Send PDF generation request to backend
+            fetch('/export_pdf', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    components: components,
+                    student_email: studentEmail
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alert(PDF exported successfully! File saved as: ${data.filename});
+                } else {
+                    alert('Error exporting PDF: ' + data.message);
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Error exporting PDF. Please try again.');
+            });
+        }
+
+        function goBackToMain() {
+            window.location.href = '/main';
+        }
+
+        // Set current date and collection date
+        function setDates() {
+            const now = new Date();
+            const collectionDate = new Date(now);
+            collectionDate.setDate(now.getDate() + 3);
+
+            const formatOptions = { 
+                year: 'numeric', 
+                month: 'long', 
+                day: 'numeric' 
+            };
+
+            document.getElementById('currentDate').textContent = now.toLocaleDateString('en-US', formatOptions);
+            document.getElementById('collectionDate').textContent = collectionDate.toLocaleDateString('en-US', formatOptions);
+        }
+
+        // Initialize dates when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            setDates();
+            
+            // Debug: Check if cart data was passed correctly
+            console.log('Cart items received:', CART_ITEMS);
+            console.log('User email:', USER_EMAIL);
+        });
+    </script>
+</body>
+</html>
