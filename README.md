@@ -22,3 +22,12 @@ A web application that helps ERS220 students find and compare electronic compone
 - Alternative suggestions for compatible parts when items are out of stock.  
 - Reservation system to track selected components across suppliers.  
 - Export functionality to generate PDF summaries.
+
+## Wireframes
+
+Here are the wireframes showing our updated designs, including changes to the colour palette and layout.
+
+![Slice 2](Wireframes/Slice 2.png)  
+![Slice 2-3](Wireframes/Slice 2-3.png)  
+![Slice 3](Wireframes/Slice 3.png)  
+![Slice 3-2](Wireframes/Slice 3-2.png)
