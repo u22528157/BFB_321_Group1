@@ -26,7 +26,7 @@ A web application that helps ERS220 students find and compare electronic compone
 ## Wireframes
 
 Here are the wireframes showing our updated designs, including changes to the colour palette and layout.
-![alt text](<Wireframes/Slice 2-3.png>)
 ![alt text](<Wireframes/Slice 2.png>)
 ![alt text](<Wireframes/Slice 3-2.png>)
 ![alt text](<Wireframes/Slice 3.png>)
+![alt text](<Wireframes/Slice 2-3.png>)
