@@ -1,4 +1,4 @@
- Instructions
+## Instructions
 Before  running  the  application,  follow  these  steps:
 
 •⁠  ⁠Download  and  install  Python.  
