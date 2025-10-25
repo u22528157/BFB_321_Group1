@@ -10,28 +10,12 @@ run app.py
 
 ## Project Overview
 
-A web application designed to help ERS220 students find and compare electronic components across multiple suppliers.
+A web application that helps ERS220 students find and compare electronic components across multiple suppliers.
 
----
-
-## Features
-
-### Practical-Based Organization
-Components are grouped according to course practicals (1, 2, 3) and include recommended add-ons.
-
-### Multi-Supplier Search
-Compare prices across both online and physical component stores.
-
-### Filtering Options
-Filter results by:
-- Store type (online or physical)
-- Price range
-
-### Alternative Suggestions
-Receive compatible and functional alternatives when parts are out of stock.
-
-### Reservation System
-Reserve components to keep track of your shopping list across suppliers.
-
-### Export Functionality
-Generate and export PDF summaries of selected components.
+**Key Features:**
+- Components organized by practical (1, 2, 3) with recommended add-ons.  
+- Multi-supplier search for comparing prices across online and physical stores.  
+- Filtering by store type (online/physical) and price range.  
+- Alternative suggestions for compatible parts when items are out of stock.  
+- Reservation system to track selected components across suppliers.  
+- Export functionality to generate PDF summaries.
