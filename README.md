@@ -61,20 +61,25 @@ In order to improve the application's final appearance and functionality, we mad
 - | └── reservation_.pdf # PDF reservation receipt
 
 ```
-├── app.py
-├── init_db.py
-├── practical_management.db
-├── README.md
-├── Templates/
-│   ├── exit.html
-│   ├── home.html
-│   ├── main.html
-│   └── signup.html
-├── Customer_feedback/
-│   └── feedback_.txt
-├── Wireframes/
-├── Reserved_components/
-│   └── reservation_.pdf
+├── app.py # Main Flask application file
+├── init_db.py # Database initialization script
+├── practical_management.db # SQLite database file
+├── README.md # This file
+│
+├── Templates/ # HTML templates
+│ ├── exit.html # Exit/logout page
+│ ├── home.html # Login page
+│ ├── main.html # Main dashboard
+│ └── signup.html # User registration page
+│
+├── Customer_feedback/ # Store customer feedback
+│ └── feedback_.txt # Feedback files with timestamps
+│
+├── Wireframes/ # Stores images used in the README.md
+│
+├── Reserved_components/ # Store component reservations
+│ └── reservation_.pdf # PDF reservation receipt
+
 ```
 
 ## Database Schema
