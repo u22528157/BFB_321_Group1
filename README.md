@@ -30,3 +30,36 @@ In order to improve the application's final appearance and functionality, we mad
 ![alt text](<Wireframes/Slice 3-2.png>)
 ![alt text](<Wireframes/Slice 3.png>)
 ![alt text](<Wireframes/Slice 2-3.png>)
+
+## Features
+User Management – Covers student registration, login, and authentication features
+Practical Access – Allows students to select and view practical's and their required components
+Component Management – Displays component details for each practical
+Vendor Integration – Shows relevant stores in Pretoria, including their stock levels and pricing
+Cart & Checkout – Enables selecting components, adding them to a cart, and generating a reservation PDF
+Feedback System – Allows students to submit ratings and feedback on vendors and components
+
+
+## File Structure
+├── app.py                  # Main Flask application file
+├── init_db.py              # Database initialization script
+├── practical_management.db # SQLite database file
+├── README.md                 # This file
+│
+├── templates/           # HTML templates
+│   ├── exit.html        # Exit/logout page
+│   ├── home.html        # Login page
+│   ├── main.html        # Main dashboard
+│   └── signup.html      # User registration page
+│
+├── Customer_feedback/   # Store customer feedback
+│   └── feedback_*.txt   # Feedback files with timestamps
+│── Wireframes/          # Stores images used in the README.md
+└── Reserved_components/   # Store component reservations
+    └── reservation_*.pdf  # PDF reservation receipts
+
+    
+
+## Database Schema
+# Entity Relationship Diagram (ERD)
+![alt text](Wireframes/ERD_GROUP_1.png)
