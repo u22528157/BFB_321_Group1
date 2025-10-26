@@ -41,22 +41,24 @@ In order to improve the application's final appearance and functionality, we mad
 
 
 ## File Structure
-├── app.py                  # Main Flask application file
-├── init_db.py              # Database initialization script
+├── app.py # Main Flask application file
+├── init_db.py # Database initialization script
 ├── practical_management.db # SQLite database file
-├── README.md                 # This file
+├── README.md # This file
 │
-├── templates/           # HTML templates
-│   ├── exit.html        # Exit/logout page
-│   ├── home.html        # Login page
-│   ├── main.html        # Main dashboard
-│   └── signup.html      # User registration page
+├── Templates/ # HTML templates
+│ ├── exit.html # Exit/logout page
+│ ├── home.html # Login page
+│ ├── main.html # Main dashboard
+│ └── signup.html # User registration page
 │
-├── Customer_feedback/   # Store customer feedback
-│   └── feedback_*.txt   # Feedback files with timestamps
-│── Wireframes/          # Stores images used in the README.md
-└── Reserved_components/   # Store component reservations
-    └── reservation_*.pdf  # PDF reservation receipts
+├── Customer_feedback/ # Store customer feedback
+│ └── feedback_.txt # Feedback files with timestamps
+│
+├── Wireframes/ # Stores images used in the README.md
+|
+└── Reserved_components/ # Store component reservations
+  └── reservation_.pdf # PDF reservation receipt
 
     
 
