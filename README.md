@@ -56,5 +56,5 @@ In order to improve the application's final appearance and functionality, we mad
 ```
 
 ## Database Schema
-# Entity Relationship Diagram (ERD)
+### Entity Relationship Diagram (ERD)
 ![alt text](Wireframes/ERD_GROUP_1.png)
