@@ -60,7 +60,22 @@ In order to improve the application's final appearance and functionality, we mad
 - |── Reserved_components/ # Store component reservations
 - | └── reservation_.pdf # PDF reservation receipt
 
-    
+```
+├── app.py
+├── init_db.py
+├── practical_management.db
+├── README.md
+├── Templates/
+│   ├── exit.html
+│   ├── home.html
+│   ├── main.html
+│   └── signup.html
+├── Customer_feedback/
+│   └── feedback_.txt
+├── Wireframes/
+├── Reserved_components/
+│   └── reservation_.pdf
+```
 
 ## Database Schema
 # Entity Relationship Diagram (ERD)
