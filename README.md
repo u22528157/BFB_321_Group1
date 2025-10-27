@@ -1,3 +1,9 @@
+## Group 1 members
+u22528157 Nishtha Naran
+u23531330 Nishtha Rasadiya
+u22501046 Jacqueline Dos Santos
+u22572521 Ayesha Mustapha
+
 ## Instructions
 Before  running  the  application,  follow  these  steps:
 
