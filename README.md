@@ -56,5 +56,12 @@ In order to improve the application's final appearance and functionality, we mad
 ```
 
 ## Database Schema
+The alternatives and pricing provided is currently is sample data.
+
+The following components are necessary for practicals one to three:
+- Practical 1: This practical requires the following 7 components: 74HCT04, 74HCT08, 74HCT32, 7474HCT86, LEDs, 100 μF capacitor and 4-input DIP switch.
+
+- Practical 2 and 3: These practicals require the following 6 components: 74HCT574, SPST Off(On) Push button, 74HCT139, 74HCT151, 74HCT595, 7-segment display & driver.
+
 ### Entity Relationship Diagram (ERD)
 ![alt text](Wireframes/ERD_GROUP_1.png)
