@@ -56,7 +56,7 @@ In order to improve the application's final appearance and functionality, we mad
 ```
 
 ## Database Schema
-The alternatives and pricing provided is currently is sample data.
+The alternative components and pricing provided is currently sample data.
 
 The following components are necessary for practicals one to three:
 - Practical 1: This practical requires the following 7 components: 74HCT04, 74HCT08, 74HCT32, 7474HCT86, LEDs, 100 μF capacitor and 4-input DIP switch.
