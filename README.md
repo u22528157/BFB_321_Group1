@@ -27,6 +27,7 @@ A web application that helps ERS220 students find and compare electronic compone
 In order to improve the application's final appearance and functionality, we made a few changes to our initial wireframe from our proposal. The following changes were made: adjusting the colour pallet, creating a more cohesive interface and adjusting the layout to improve user flow and readability. These changes guarantee a more polished and user friendly experience than the original concept, although the general design and intent of each page remains the same.
 
 ![alt text](<Wireframes/Slice 2.png>)
+![alt text](Wireframes/Slice_SignUp.png)
 ![alt text](<Wireframes/Slice 3-2.png>)
 ![alt text](<Wireframes/Slice 3.png>)
 ![alt text](<Wireframes/Slice 2-3.png>)
