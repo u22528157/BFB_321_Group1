@@ -327,6 +327,18 @@
             cursor: pointer;
         }
 
+        .kpi-value {
+            padding: 8px 12px;
+            border: 2px solid #e1e8ed;
+            border-radius: 8px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            font-size: 16px;
+            font-weight: 700;
+            text-align: center;
+            min-width: 80px;
+        }
+
         .components-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
@@ -626,6 +638,14 @@
                                 <option value="physical">Physical</option>
                             </select>
                         </div>
+                       <div class="filter-group">
+                            <label class="filter-label">Avg Supplier Price</label>
+                            <div class="kpi-value" id="avgPrice">$0.00</div>
+                        </div>
+                        <div class="filter-group">
+                            <label class="filter-label">Number of Suppliers</label>
+                            <div class="kpi-value" id="supplierCount">0</div>
+                        </div>
                     </div>
                 </div>
 
@@ -845,7 +865,10 @@
                     ${componentData.components.map(component => createComponentDetailTile(component)).join('')}
                 </div>
             `;
-            
+
+            // Update KPIs for selected component
+            updateComponentKPIs(componentData.components);
+
             // Show alternatives section in right panel
             const data = practicalData[currentTab];
             if (data && data.alternatives && data.alternatives.length > 0) {
@@ -853,6 +876,21 @@
                 document.getElementById('alternativesSection').style.display = 'block';
                 document.getElementById('alternativesDivider').style.display = 'block';
             }
+        }
+
+        function updateComponentKPIs(components) {
+            // Calculate average supplier price
+            const prices = components.map(c => c.price);
+            const avgPrice = prices.length > 0 
+                ? (prices.reduce((sum, price) => sum + price, 0) / prices.length).toFixed(2)
+                : 0;
+            
+            // Count number of suppliers
+            const supplierCount = components.length;
+            
+            // Update KPI displays
+            document.getElementById('avgPrice').textContent = `$${avgPrice}`;
+            document.getElementById('supplierCount').textContent = supplierCount;
         }
 
         function createComponentDetailTile(component) {
@@ -885,6 +923,9 @@
                     <p>Click on a component from the left panel to view available options</p>
                 </div>
             `;
+            // Reset KPIs
+            document.getElementById('avgPrice').textContent = '$0.00';
+            document.getElementById('supplierCount').textContent = '0';
             
             // Hide alternatives section
             document.getElementById('alternativesSection').style.display = 'none';
